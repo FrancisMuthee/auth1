@@ -14,6 +14,7 @@ urlpatterns = [
     path('', views.home, name='home'),  # URL for the home page
     path('login/', views.login_page, name='login'),  # URL for the login page
     path('register/', views.register_page, name='register'),  # URL for the registration page
+	path('pay/', views.pay, name="pay"),
 ]
 
 # Serve media files if DEBUG is True (development mode)

@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, auth
 from .models import *
 
 # Define a view function for the home page
@@ -14,17 +14,17 @@ def home(request):
 def login_page(request):
 	# Check if the HTTP request method is POST (form submission)
 	if request.method == "POST":
-		username = request.POST.get('username')
+		username = request.POST.get('email')
 		password = request.POST.get('password')
 		
 		# Check if a user with the provided username exists
-		if not User.objects.filter(username=username).exists():
+		if not User.objects.filter(email=email).exists():
 			# Display an error message if the username does not exist
-			messages.error(request, 'Invalid Username')
+			messages.error(request, 'Invalid Email')
 			return redirect('/login/')
 		
 		# Authenticate the user with the provided username and password
-		user = authenticate(username=username, password=password)
+		user = authenticate(email=email, password=password)
 		
 		if user is None:
 			# Display an error message if authentication fails (invalid password)
@@ -44,22 +44,24 @@ def register_page(request):
 	if request.method == 'POST':
 		first_name = request.POST.get('first_name')
 		last_name = request.POST.get('last_name')
-		username = request.POST.get('username')
+		email = request.POST.get('email')
+		phone = request.POST.get('phone')
 		password = request.POST.get('password')
 		
 		# Check if a user with the provided username already exists
-		user = User.objects.filter(username=username)
+		user = User.objects.filter(email=email)
 		
 		if user.exists():
 			# Display an information message if the username is taken
-			messages.info(request, "Username already taken!")
+			messages.info(request, "Email already taken!")
 			return redirect('/register/')
 		
 		# Create a new User object with the provided information
 		user = User.objects.create_user(
 			first_name=first_name,
 			last_name=last_name,
-			username=username
+			email=email,
+			phone=phone
 		)
 		
 		# Set the user's password and save the user object
@@ -72,3 +74,6 @@ def register_page(request):
 	
 	# Render the registration page template (GET request)
 	return render(request, 'register.html')
+
+def pay(request):
+	return render(request, 'pay.html')

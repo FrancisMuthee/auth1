@@ -9,11 +9,11 @@
 <body>
 	<div class="container mt-5">
 		<!-- Registration form -->
-		<form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+		<form class="col-6 mx-auto card p-3 shadow-lg" action="register" method="post" enctype="multipart/form-data">
 			{% csrf_token %} <!-- CSRF token for security -->
 
 			<!-- Registration form heading -->
-			<h1 style="text-align: center;"><span style="color: green;">Registration card</span></h1>
+			<h1 style="text-align: center;"><span style="color: green;">Registration Details</span></h1>
 			<h3>Register</h3>
 			<hr>
 
@@ -42,10 +42,18 @@
 
 			<!-- Username input field -->
 			<div class="form-group">
-				<label for="exampleInputEmail1">Username</label>
-				<input type="text" class="form-control" name="username" id="exampleInputEmail1"
+				<label for="exampleInputEmail1">Email</label>
+				<input type="email" class="form-control" name="email" id="exampleInputEmail1"
 					aria-describedby="emailHelp" placeholder="Enter email" required>
 			</div>
+			<!-- Phone number input field -->
+			<div class="form-group">
+				<label for="exampleInputPhone">Phone Number</label>
+				<input type="tel" class="form-control" name="phone" id="exampleInputPhone"
+					placeholder="Enter phone number"  required>
+				<small id="phoneHelp" class="form-text text-muted">Format:e.g. Kenya +254...</small>
+			</div>
+
 
 			<!-- Password input field -->
 			<div class="form-group">
